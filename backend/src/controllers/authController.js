@@ -44,18 +44,26 @@ const register = async (req, res) => {
 
     await user.save();
 
-    // Generate email verification token
-    const verificationToken = generateRandomToken();
-    user.emailVerificationToken = verificationToken;
-    user.emailVerificationExpires = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
-    await user.save();
+    // In development, auto-verify the user to simplify local testing
+    if (process.env.NODE_ENV === 'development') {
+      user.verified = true;
+      user.emailVerificationToken = undefined;
+      user.emailVerificationExpires = undefined;
+      await user.save();
+    } else {
+      // Generate email verification token for production
+      const verificationToken = generateRandomToken();
+      user.emailVerificationToken = verificationToken;
+      user.emailVerificationExpires = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
+      await user.save();
 
-    // Send verification email
-    try {
-      await sendVerificationEmail(user.email, verificationToken);
-    } catch (emailError) {
-      console.error('Error sending verification email:', emailError);
-      // Don't fail the registration if email sending fails
+      // Send verification email
+      try {
+        await sendVerificationEmail(user.email, verificationToken);
+      } catch (emailError) {
+        console.error('Error sending verification email:', emailError);
+        // Don't fail the registration if email sending fails
+      }
     }
 
     res.status(201).json({

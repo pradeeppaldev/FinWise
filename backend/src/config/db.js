@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
-  // Check if MONGO_URI is provided
-  if (!process.env.MONGO_URI) {
-    console.warn('MONGO_URI not provided. Skipping database connection.');
-    return;
-  }
-
   try {
+    // Check if MONGO_URI is provided
+    if (!process.env.MONGO_URI) {
+      console.warn('MONGO_URI not provided. Using default URI: mongodb://localhost:27017/finwise');
+      process.env.MONGO_URI = 'mongodb://localhost:27017/finwise';
+    }
+
     // Add connection options
     const conn = await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,

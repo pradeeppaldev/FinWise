@@ -4,7 +4,7 @@ require('dotenv').config();
 // Configuration with sensible defaults
 const config = {
   // Server configuration
-  port: parseInt(process.env.PORT, 10) || 3000,
+  port: parseInt(process.env.PORT, 10) || 3001,
   nodeEnv: process.env.NODE_ENV || 'development',
   logLevel: process.env.LOG_LEVEL || 'info',
 
