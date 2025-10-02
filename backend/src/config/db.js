@@ -8,6 +8,7 @@ const connectDB = async () => {
   }
 
   try {
+    // Add connection options
     const conn = await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -17,6 +18,8 @@ const connectDB = async () => {
   } catch (error) {
     console.error(`Error: ${error.message}`);
     console.warn('Database connection failed. Server will start without database.');
+    console.warn('Please ensure MongoDB is running and MONGO_URI is correctly configured.');
+    console.warn('Default URI: mongodb://localhost:27017/finwise');
     // Don't exit the process, allow server to start without DB for development
   }
 };

@@ -100,7 +100,7 @@ describe('Auth Controller', () => {
       await register(req, res);
 
       expect(User.findOne).toHaveBeenCalledWith({ email: 'test@example.com' });
-      expect(bcrypt.hash).toHaveBeenCalledWith('password123', 10); // Updated to match actual implementation
+      expect(bcrypt.hash).toHaveBeenCalledWith('password123', 12);
       expect(res.status).toHaveBeenCalledWith(201);
       expect(res.json).toHaveBeenCalledWith({
         success: true,
