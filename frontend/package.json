@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "Frontend for FinWise financial literacy platform",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

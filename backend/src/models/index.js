@@ -8,5 +8,6 @@ module.exports = {
   Progress: require('./Progress'),
   Portfolio: require('./Portfolio'),
   Post: require('./Post'),
-  Badge: require('./Badge')
+  Badge: require('./Badge'),
+  RefreshToken: require('./RefreshToken')
 };
